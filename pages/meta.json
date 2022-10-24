@@ -1,8 +1,5 @@
 {
   "index": "Introduction",
-  "get-started": "Get Started",
   "docs": "Docs",
-  "features": "Features",
-  "themes": "Themes",
-  "advanced": "Advanced"
+  "themes": "Themes"
 }
