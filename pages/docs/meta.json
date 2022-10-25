@@ -1,4 +1,6 @@
 {
   "network": "Network",
-  "shell": "Shell"
+  "shell": "Shell",
+  "sql": "SQL",
+  "markdown": "Markdown"
 }
