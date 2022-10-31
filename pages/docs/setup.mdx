@@ -1,0 +1,32 @@
+# SetUp
+
+## Mac
+：Command line tools for Xcode
+```
+$ xcode-select --install
+```
+
+：Homebrew
+```
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+
+：fish
+```
+$ brew install fish
+```
+
+fishのPathを調べる
+```
+$ which fish 
+```
+
+fishのPathを追記
+```
+$ sudo vi /etc/shells
+```
+
+Shellのdefaultをfishに設定
+```
+$ chsh -s /usr/local/bin/fish
+```
