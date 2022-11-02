@@ -2,6 +2,7 @@
   "network": "Network",
   "shell": "Shell",
   "sql": "SQL",
+  "java": "Java",
   "setup": "SetUp",
   "markdown": "Markdown"
 }
