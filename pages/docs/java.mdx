@@ -59,6 +59,7 @@ public static long currentTimeMillis()
 ```
 
 使用例
+
 ```jsx highlight=4,6-8
 
 public class SampleClass {
@@ -233,8 +234,12 @@ public class Sample {
 
 ### ・注意点
 
-：fieldの名前を変更する時、Builderで生成されたsetterの名前がうまく変更できない場合がある。<br>
-：@Dataは使用しない方が良い。
+```markdown
+
+fieldの名前を変更する時、Builderで生成されたsetterの名前がうまく変更できない場合がある。<br>
+@Dataは使用しない方が良い。
+
+```
 
 #### @Dataに含まれている@EqualsAndHashCodeの問題
 
