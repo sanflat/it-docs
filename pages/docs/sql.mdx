@@ -311,6 +311,30 @@ LEFT JOIN テーブル名B as b ON a.id = b.id;
 このように、INNER JOINではテーブルBには、idが4のレコードは存在しない(紐づかない)ので、抽出されませんが。
 LEFT JOINではnullとして表示されました。
 
+## GROUP BY関数
+
+|名前|説明|
+| :-- | :-- |
+|AVG()|引数の平均値を返します
+|BIT_AND()|ビット単位の And を返します
+|BIT_OR()|ビット単位の OR を返します
+|BIT_XOR()|ビット単位の XOR を返します
+|COUNT()|返された行数のカウントを返します
+|COUNT(DISTINCT)|異なる値のカウントを返します
+|GROUP_CONCAT()|連結された文字列を返します
+|MAX()|最大値を返します
+|MIN()|最小値を返します
+|STD()|母標準偏差を返します
+|STDDEV()|母標準偏差を返します
+|STDDEV_POP()|母標準偏差を返します
+|STDDEV_SAMP()|標本標準偏差を返します
+|SUM()|集計を返します
+|VAR_POP()|母標準分散を返します
+|VAR_SAMP()|標本分散を返します
+|VARIANCE()|母標準分散を返します
+
+Link：[MYSQLリファレンス](https://dev.mysql.com/doc/refman/5.6/ja/group-by-functions.html)
+
 ## UNION
 ## UNION ALL
 

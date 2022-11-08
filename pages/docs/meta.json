@@ -2,7 +2,9 @@
   "network": "Network",
   "shell": "Shell",
   "sql": "SQL",
+  "orm": "ORM",
   "java": "Java",
+  "read": "Read",
   "setup": "SetUp",
   "markdown": "Markdown"
 }

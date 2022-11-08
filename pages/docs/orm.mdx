@@ -1,0 +1,150 @@
+# ORM
+
+## SpringBoot×ORM
+
+- HibernateまたはJPAのメリットとデメリット
+  - メリット：SQLを書かなくても良いためコードの量が減る。
+  - デメリット：複雑なSQL分の場合、対応が難しい
+- MyBatisのメリットとデメリット
+  - メリット：SQLを書くため、複雑なSQLでも問題なし。
+  - デメリット：SQLを書くため、コード量が増える。
+
+好みは[MyBatis](https://mybatis.org/mybatis-3/ja/index.html)だけど、[JOOQ](https://www.jooq.org/)も使いやすかった記憶。<br>
+SQLを書く人であれば基本的にMyBatisの方が親しみやすそうなので基本的にMybatisを利用する。
+
+### ■ MyBatis
+
+#### ・Mapperの作成はGroovyを利用する
+
+Javaはsqlをstring文字列で扱うため読みにくい。Groovyを使えば読みやすく書ける。
+http://qiita.com/kazuki43zoo/items/0c6ac5acaee1201a433e
+
+```jsx highlight=4,6-8
+// Java
+
+@Mapper
+public interface CityMapperJava {
+    @Select("" +
+            "SELECT" +
+            " id, name, state, country " +
+            "FROM " +
+            "city " +
+            "WHERE " +
+            "state = #{state}" +
+            "")
+    City findByState(String state);
+}
+```
+
+```jsx highlight=4,6-8
+@Mapper
+interface CityMapperGroovy {
+    //CREATE
+    @Insert('''
+            INSERT INTO
+                tcity (code, name, state, country)
+                values (#{code}, #{name}, #{state}, #{country})
+    ''')
+    int insert(City city)
+ 
+ 
+    //READ
+    @Select('''
+            SELECT
+                code, name, state, country
+            FROM
+                tcity
+            WHERE
+                code = #{code}
+    ''')
+    City findByCode(String code)
+ 
+    //UPDATE
+    @Update('''
+            UPDATE
+                tcity
+            SET
+                name = #{name}
+            WHERE
+                code = #{code}
+    ''')
+    City updateNamebyCode(String code, String name)
+ 
+ 
+    //DELETE
+    @Delete('''
+            DELETE
+            FROM
+                tcity
+            WHERE
+                code = #{code}
+    ''')
+    void deleteByCode(String code)
+}
+```
+
+#### ・sqlsession
+http://www.mybatis.org/spring/ja/sqlsession.html
+
+
+```jsx highlight=4,6-8
+//実装例
+
+@Configuration
+@EnableTransactionManagement
+@MapperScan("com.example.demo.mapper")
+@ComponentScan("com.example.demo")
+public class SetupApplicationPersistenceConfig {
+ 
+    @Autowired
+    private DataSource dataSource;
+ 
+    @Bean
+     public DataSourceTransactionManager transactionManager() {
+         return new DataSourceTransactionManager(dataSource);
+     }
+ 
+     @Bean
+     public SqlSessionFactory sqlSessionFactory() throws Exception {
+         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+         sessionFactory.setDataSource(dataSource);
+         SqlSessionFactory factory = sessionFactory.getObject();
+         return factory;
+     }
+ 
+     @Bean
+     public SqlSession sqlSessionTemplate() throws Exception {
+         return new SqlSessionTemplate(sqlSessionFactory());
+     }
+}
+
+```
+
+#### ・動的なSQLの生成
+```jsx highlight=4,6-8
+//実装例
+
+@Update("<script>
+  update CITY
+    <set>
+      <if test="name != null">name=#{name},</if>
+      <if test="state != null">state=#{state},</if>
+      <if test="country != null">country=#{country},</if>
+    </set>
+  where id=#{id}
+</script>")
+
+```
+
+#### ・カラムとオブジェクトのfiels名が異なる場合
+```jsx highlight=4,6-8
+//実装例
+
+@Results({
+        @Result(property = "regDm", column = "reg_dm"),
+        @Result(property = "updDm", column = "upd_dm")
+})
+@Select("select * from tsfsmeta where fullpath = #{fullpath} order by reg_dm")
+List<SFSMeta> getListByFullPath(@Param("fullpath")String fullPath);
+
+```
