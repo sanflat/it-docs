@@ -2,7 +2,8 @@
 
 ## SpringBoot×ORM
 
-```
+```markdown
+
 - HibernateまたはJPAのメリットとデメリット
   - メリット：SQLを書かなくても良いためコードの量が減る。
   - デメリット：複雑なSQL分の場合、対応が難しい
@@ -12,22 +13,26 @@
 
 ```
 
-```
+```markdown
+
 好みは[MyBatis](https://mybatis.org/mybatis-3/ja/index.html)だけど、[JOOQ](https://www.jooq.org/)も使いやすかった記憶。<br>
 SQLを書く人であれば基本的にMyBatisの方が親しみやすそうなので基本的にMybatisを利用する。
+
 ```
 
 ### ■ MyBatis
 
 #### ・Mapperの作成はGroovyを利用する
 
-```
+```markdown
+
 Javaはsqlをstring文字列で扱うため読みにくい。Groovyを使えば読みやすく書ける。
 [Qiita](http://qiita.com/kazuki43zoo/items/0c6ac5acaee1201a433e)
 
 ```
 
 ```jsx highlight=4,6-8
+
 // Java
 
 @Mapper
@@ -42,9 +47,11 @@ public interface CityMapperJava {
             "")
     City findByState(String state);
 }
+
 ```
 
 ```jsx highlight=4,6-8
+
 @Mapper
 interface CityMapperGroovy {
     //CREATE
@@ -89,6 +96,7 @@ interface CityMapperGroovy {
     ''')
     void deleteByCode(String code)
 }
+
 ```
 
 #### ・sqlsession
@@ -97,6 +105,7 @@ interface CityMapperGroovy {
 
 
 ```jsx highlight=4,6-8
+
 //実装例
 
 @Configuration
@@ -132,6 +141,7 @@ public class SetupApplicationPersistenceConfig {
 #### ・動的なSQLの生成
 
 ```jsx highlight=4,6-8
+
 //実装例
 
 @Update("<script>
@@ -149,6 +159,7 @@ public class SetupApplicationPersistenceConfig {
 #### ・カラムとオブジェクトのfiels名が異なる場合
 
 ```jsx highlight=4,6-8
+
 //実装例
 
 @Results({
