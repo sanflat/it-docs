@@ -317,11 +317,14 @@ public class Sample {
 ```
 
 #### 解決策
-@Dataの代わりに @Getterのみを使用。(@Setterは利用しないため、 @Builderの利用は必須になる)<br>
 
-equalsやhashcodeなどオーバーライドする必要がある場合はlombokではなく手動でoverrideする。<br>
+```markdown
+@Dataの代わりに @Getterのみを使用。(@Setterは利用しないため、 @Builderの利用は必須になる)
 
-結論は@Getterと@Builderの２つのアノテーション組み合わせのみ利用する。<br>
+equalsやhashcodeなどオーバーライドする必要がある場合はlombokではなく手動でoverrideする。
+
+結論は@Getterと@Builderの２つのアノテーション組み合わせのみ利用する。
+```
 
 ```jsx highlight=4,6-8
 
